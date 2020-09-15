@@ -1,0 +1,2 @@
+class ClickList < ApplicationRecord
+end
