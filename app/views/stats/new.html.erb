@@ -1,0 +1,44 @@
+<div>
+    <h3>Welcome to short.com</h3>
+
+    <div>Please enter your URL here</div>
+    <div>
+        <%= text_field_tag :long_url %>
+        <%= submit_tag "SHORTEN", :id => "input_url_id" %>
+    </div><br/>
+
+    <div>Here's your short URL!</div>
+    <h4 id="short_url_id" url=""></h4>
+</div>
+
+<script type="text/javascript">
+
+    $(function() {
+
+        $("#input_url_id").on("click", function(e) {
+
+            var long_url = $("#long_url").val();
+            $("#short_url_id").html("");
+
+            $.ajax({
+                type: "get",
+                async: false,
+                cache: false,
+                dataType: "json",
+                url: "/stats/short_url.json?long_url="+long_url,
+                contentType: 'application/json',
+                success: function(data, response) {
+                    if (data.status == "ACK"){
+                        $("#short_url_id").html(data.short_url);
+                        $("#short_url_id").attr("url", data.short_url);
+                    }else {
+                        $("#short_url_id").html(data.message);
+                    }
+                }
+            })
+
+        });
+
+    });
+
+</script>
