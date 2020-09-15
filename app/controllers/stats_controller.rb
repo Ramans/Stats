@@ -43,6 +43,20 @@ class StatsController < ApplicationController
         end
     end
 
+    def clicks_count_update
+        @stat = Stat.find_by_shorten_url(params[:short_url])
+        if @stat.present?
+            @click = @stat.click_lists.new
+            @click.country = request.location.country
+            @click.client_ip = request.ip
+            @click.save
+        end
+        respond_to do |format|
+            format.html
+            format.json { render json: "Count updated successfully.".to_json, :callback => params[:callback] }
+        end
+    end
+
     def routing_404
         render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => true
     end

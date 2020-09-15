@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     resources :stats, only: [:index, :new] do
         collection do
             get "short_url"
+            get "clicks_count_update"
         end
     end
 

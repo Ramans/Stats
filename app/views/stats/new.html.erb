@@ -39,6 +39,26 @@
 
         });
 
+        $("#short_url_id").on("click", function(e) {
+            var url = $("#short_url_id").attr("url");
+
+            if (url != "") {
+                var win = window.open(url, '_blank');
+
+                $.ajax({
+                    type: "get",
+                    async: false,
+                    cache: false,
+                    dataType: "json",
+                    url: "/stats/clicks_count_update.json?short_url="+url,
+                    contentType: 'application/json',
+                    success: function(data, response) {
+                    }
+                })
+            }
+
+        });
+
     });
 
 </script>
