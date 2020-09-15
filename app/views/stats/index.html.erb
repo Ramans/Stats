@@ -1,0 +1,14 @@
+
+<div>
+    <h2>Analytics</h2>
+
+    <% @stats.each do |stat| %>
+        <div style="border-bottom: 2px solid #000;padding:20px;">
+            <h4><%= stat.url %></h4>
+            <%= stat.shorten_url %><br/><br/>
+
+            Total Clicks: <%= stat.click_lists.count %><br/>
+            Top Countries: <%= stat_country_list(stat) %>
+        </div>
+    <% end %>
+</div>
